@@ -18,7 +18,10 @@ import {
     spyReportStart,
     startBatch,
     trace,
-    trackDerivedFunction
+    trackDerivedFunctionStart,
+    ITrackDerivedFunctionState,
+    trackDerivedFunctionEnd,
+    trackDerivedFunctionCall
 } from "../internal"
 
 /**
@@ -118,23 +121,31 @@ export class Reaction implements IDerivation, IReactionPublic {
         }
     }
 
-    track(fn: () => void) {
+    private _startTime: number | undefined
+    private _trackState: ITrackDerivedFunctionState | undefined
+
+    _trackStart(): boolean {
         if (this.isDisposed) {
-            return
+            return false
             // console.warn("Reaction already disposed") // Note: Not a warning / error in mobx 4 either
         }
         startBatch()
         const notify = isSpyEnabled()
-        let startTime
         if (notify && process.env.NODE_ENV !== "production") {
-            startTime = Date.now()
+            this._startTime = Date.now()
             spyReportStart({
                 name: this.name,
                 type: "reaction"
             })
         }
         this._isRunning = true
-        const result = trackDerivedFunction(this, fn, undefined)
+        this._trackState = trackDerivedFunctionStart(this)
+        return true
+    }
+
+    _trackEnd(result: any) {
+        trackDerivedFunctionEnd(this._trackState!, result)
+        this._trackState = undefined
         this._isRunning = false
         this._isTrackPending = false
         if (this.isDisposed) {
@@ -142,12 +153,23 @@ export class Reaction implements IDerivation, IReactionPublic {
             clearObserving(this)
         }
         if (isCaughtException(result)) this.reportExceptionInDerivation(result.cause)
+
+        const notify = isSpyEnabled()
         if (notify && process.env.NODE_ENV !== "production") {
             spyReportEnd({
-                time: Date.now() - startTime
+                time: Date.now() - this._startTime!
             })
+            this._startTime = undefined
         }
         endBatch()
+    }
+
+    track(fn: () => void) {
+        const shouldRun = this._trackStart()
+        if (shouldRun) {
+            const result = trackDerivedFunctionCall(fn, undefined)
+            this._trackEnd(result)
+        }
     }
 
     reportExceptionInDerivation(error: any) {

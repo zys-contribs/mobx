@@ -170,12 +170,13 @@ export function checkIfStateReadsAreAllowed(observable: IObservable) {
     }
 }
 
-/**
- * Executes the provided function `f` and tracks which observables are being accessed.
- * The tracking information is stored on the `derivation` object and the derivation is registered
- * as observer of any of the accessed observables.
- */
-export function trackDerivedFunction<T>(derivation: IDerivation, f: () => T, context: any) {
+export interface ITrackDerivedFunctionState {
+    derivation: IDerivation
+    prevTracking: IDerivation | null
+    prevAllowStateReads: boolean
+}
+
+export function trackDerivedFunctionStart(derivation: IDerivation): ITrackDerivedFunctionState {
     const prevAllowStateReads = allowStateReadsStart(true)
     // pre allocate array allocation + room for variation in deps
     // array will be trimmed by bindDependencies
@@ -185,22 +186,46 @@ export function trackDerivedFunction<T>(derivation: IDerivation, f: () => T, con
     derivation.runId = ++globalState.runId
     const prevTracking = globalState.trackingDerivation
     globalState.trackingDerivation = derivation
-    let result
+
+    return {
+        derivation,
+        prevTracking,
+        prevAllowStateReads
+    }
+}
+
+export function trackDerivedFunctionEnd<T>(state: ITrackDerivedFunctionState, result: T): void {
+    globalState.trackingDerivation = state.prevTracking
+    bindDependencies(state.derivation)
+
+    warnAboutDerivationWithoutDependencies(state.derivation)
+
+    allowStateReadsEnd(state.prevAllowStateReads)
+}
+
+export function trackDerivedFunctionCall<T>(f: () => T, context: any): T {
     if (globalState.disableErrorBoundaries === true) {
-        result = f.call(context)
+        return f.call(context)
     } else {
         try {
-            result = f.call(context)
+            return f.call(context)
         } catch (e) {
-            result = new CaughtException(e)
+            return new CaughtException(e) as any
         }
     }
-    globalState.trackingDerivation = prevTracking
-    bindDependencies(derivation)
+}
 
-    warnAboutDerivationWithoutDependencies(derivation)
+/**
+ * Executes the provided function `f` and tracks which observables are being accessed.
+ * The tracking information is stored on the `derivation` object and the derivation is registered
+ * as observer of any of the accessed observables.
+ */
+export function trackDerivedFunction<T>(derivation: IDerivation, f: () => T, context: any) {
+    const state = trackDerivedFunctionStart(derivation)
 
-    allowStateReadsEnd(prevAllowStateReads)
+    const result = trackDerivedFunctionCall(f, context)
+
+    trackDerivedFunctionEnd(state, result)
 
     return result
 }
