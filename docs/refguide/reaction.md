@@ -6,7 +6,7 @@ hide_title: true
 
 # Reaction
 
-<div id='codefund' ></div>
+<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEBD4KQ7&placement=mobxjsorg" id="_carbonads_js"></script>
 
 Usage: `reaction(() => data, (data, reaction) => { sideEffect }, options?)`.
 
@@ -30,7 +30,7 @@ In other words: reaction requires you to produce the things you need in your sid
 Reaction accepts a third argument as an options object with the following optional options:
 
 -   `fireImmediately`: Boolean that indicates that the effect function should immediately be triggered after the first run of the data function. `false` by default.
--   `delay`: Number in milliseconds that can be used to debounce the effect function. If zero (the default), no debouncing will happen.
+-   `delay`: Number in milliseconds that can be used to throttle the effect function. If zero (the default), no throttling will happen.
 -   `equals`: `comparer.default` by default. If specified, this comparer function will be used to compare the previous and next values produced by the _data_ function. The _effect_ function will only be invoked if this function returns false. If specified, this will override `compareStructural`.
 -   `name`: String that is used as name for this reaction in for example [`spy`](spy.md) events.
 -   `onError`: function that will handle the errors of this reaction, rather then propagating them.
@@ -47,28 +47,30 @@ See also [what will MobX React to?](../best/react).
 const todos = observable([
     {
         title: "Make coffee",
-        done: true
+        done: true,
     },
     {
         title: "Find biscuit",
-        done: false
-    }
+        done: false,
+    },
 ])
 
 // wrong use of reaction: reacts to length changes, but not to title changes!
 const reaction1 = reaction(
     () => todos.length,
-    length => console.log("reaction 1:", todos.map(todo => todo.title).join(", "))
+    (length) => console.log("reaction 1:", todos.map((todo) => todo.title).join(", "))
 )
 
 // correct use of reaction: reacts to length and title changes
 const reaction2 = reaction(
-    () => todos.map(todo => todo.title),
-    titles => console.log("reaction 2:", titles.join(", "))
+    () => todos.map((todo) => todo.title),
+    (titles) => console.log("reaction 2:", titles.join(", "))
 )
 
 // autorun reacts to just everything that is used in its function
-const autorun1 = autorun(() => console.log("autorun 1:", todos.map(todo => todo.title).join(", ")))
+const autorun1 = autorun(() =>
+    console.log("autorun 1:", todos.map((todo) => todo.title).join(", "))
+)
 
 todos.push({ title: "explain reactions", done: false })
 // prints:

@@ -6,7 +6,7 @@ hide_title: true
 
 # MobX Api Reference
 
-<div id='codefund' ></div>
+<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEBD4KQ7&placement=mobxjsorg" id="_carbonads_js"></script>
 
 **Applies to MobX 4 and higher**
 
@@ -162,11 +162,11 @@ const taskStore = observable(
         tasks: [],
         addTask(task) {
             /* ... */
-        }
+        },
     },
     {
         tasks: observable.shallow,
-        addTask: action
+        addTask: action,
     }
 )
 ```
@@ -184,7 +184,7 @@ Use this if you cannot use the _@decorator_ syntax or need more control over set
 class TodoList {
     todos = {}
     get unfinishedTodoCount() {
-        return values(this.todos).filter(todo => !todo.finished).length
+        return values(this.todos).filter((todo) => !todo.finished).length
     }
     addTodo() {
         const t = new Todo()
@@ -196,7 +196,7 @@ class TodoList {
 decorate(TodoList, {
     todos: observable,
     unfinishedTodoCount: computed,
-    addTodo: action.bound
+    addTodo: action.bound,
 })
 ```
 
@@ -215,7 +215,7 @@ class Todo {
 
 decorate(Todo, {
     title: [serializable(primitive), persist("object"), observable],
-    finished: [serializable(primitive), observable]
+    finished: [serializable(primitive), observable],
 })
 ```
 
@@ -324,7 +324,7 @@ async function* someNumbers() {
     yield Promise.resolve(3)
 }
 
-const count = mobx.flow(async function*() {
+const count = mobx.flow(async function* () {
     // use for await to loop async iterators
     for await (const number of someNumbers()) {
         total += number
@@ -368,7 +368,7 @@ Returns a disposer function to cancel the side effect.
 **options**
 
 -   **`name?: string`**: A name for easier identification and debugging
--   **`delay?: number`**: the sideEffect will be delayed and debounced with the given `delay`. Defaults to `0`.
+-   **`delay?: number`**: the sideEffect will be delayed and throttled with the given `delay`. Defaults to `0`.
 -   **`onError?: (error) => void`**: error handler that will be triggered if the autorun function throws an exception
 -   **`scheduler?: (callback) => void`**: Set a custom scheduler to determine how re-running the autorun function should be scheduled
 -   **`requiresObservable?: boolean`** Enables [`reactionRequiresObservable`](#reactionrequiresobservable-boolean) locally for the autorun
@@ -400,14 +400,14 @@ Usage: `reaction(() => data, data => { sideEffect }, options)`.
 A variation on `autorun` that gives more fine-grained control on which observables that will be tracked.
 It takes two function, the first one is tracked and returns data that is used as input for the second one, the side effect.
 Unlike `autorun` the side effect won't be run initially, and any observables that are accessed while executing the side effect will not be tracked.
-The side effect can be debounced, just like `autorunAsync`.
+The side effect can be throttled, just like `autorunAsync`.
 
 [&laquo;details&raquo;](reaction.md)
 
 **options**
 
 -   **`fireImmediately?: boolean`**: Wait for a change before firing the _effect function_. Defaults to `false`.
--   **`delay?: number`**: the sideEffect will be delayed and debounced with the given `delay`. Defaults to `0`.
+-   **`delay?: number`**: the sideEffect will be delayed and throttled with the given `delay`. Defaults to `0`.
 -   **`equals`**: Custom equality function to determine whether the expr function differed from it's previous result, and hence should fire effect. Accepts the same options as the equals option of `computed`.
 -   Also accepts all of the options from [`autorun`](#autorun)
 -   **`requiresObservable?: boolean`** Enables [`reactionRequiresObservable`](#reactionrequiresobservable-boolean) locally for the reaction
@@ -522,7 +522,7 @@ export class City {
         clearInterval(this.interval)
     }
 
-    fetchTemperature = flow(function*() {
+    fetchTemperature = flow(function* () {
         // data fetching logic
     })
 }
@@ -649,7 +649,7 @@ configure({
     reactionScheduler: (f): void => {
         console.log("Running an event after a delay:", f)
         setTimeout(f, 100)
-    }
+    },
 })
 ```
 
@@ -770,7 +770,7 @@ Example:
 ```javascript
 const person = observable({
     firstName: "Michel",
-    lastName: "Weststrate"
+    lastName: "Weststrate",
 })
 
 autorun(() => {

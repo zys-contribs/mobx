@@ -1,3 +1,35 @@
+# UNPUBLISHED (keep this here and add unpublished changes)
+
+# 5.15.7 / 4.15.7
+
+-   Fixed [2438](https://github.com/mobxjs/mobx/issues/2438), factory types caused eslint warnings, by [@amareis](https://github.com/Amareis) through [2439](https://github.com/mobxjs/mobx/pull/2439)
+-   Fixed [2432](https://github.com/mobxjs/mobx/issues/2423), array.reduce without initial value by [@urugator](https://github.com/urugator)
+
+# 5.15.6 / 4.15.6
+
+-   Fixed [2423](https://github.com/mobxjs/mobx/issues/2423), array methods not dehancing by [@urugator](https://github.com/urugator)
+-   Fixed [2424](https://github.com/mobxjs/mobx/issues/2424) Map / Set instantiation triggering a strict warning, through [#2425](https://github.com/mobxjs/mobx/pull/2425) by [@moonball](https://github.com/moonball)
+
+# 5.15.5 / 4.15.5
+
+-   Fixed ObservableSet.prototype.forEach not being reactive in 4.x [#2341](https://github.com/mobxjs/mobx/pull/2341) by [@melnikov-s](https://github.com/melnikov-s)
+-   Add error when computed value declared for unspecified getter [#1867](https://github.com/mobxjs/mobx/issues/1867) by [@berrunder](https://github.com/berrunder)
+-   Fixed [#2326](https://github.com/mobxjs/mobx/issues/2326) correct array is passed to callbacks by [@urugator](https://github.com/urugator)
+-   Fixed [#2278](https://github.com/mobxjs/mobx/issues/2278), `map.delete` should respect strict mode, by [@urugator](https://github.com/urugator)
+-   Fixed [#2253](https://github.com/mobxjs/mobx/issues/2253), [#1980](https://github.com/mobxjs/mobx/issues/1980), map key order not always preserved by [@urugator](https://github.com/urugator)
+-   Fixed [#2412](https://github.com/mobxjs/mobx/issues/2412), non-enumerable getters not being picked up by `extendObservable` by [@urugator](https://github.com/urugator)
+
+-   Several performance improvements
+-   Dropped `browser` fields from `package.json`
+
+# 5.15.4 / 4.15.4
+
+-   Fix process.env replacement in build [#2267](https://github.com/mobxjs/mobx/pull/2267) by [@fredyc](https://github.com/fredyc)
+
+# 5.15.3 / 4.15.3
+
+-   Define action name to be as the function name [#2262](https://github.com/mobxjs/mobx/pull/2262) by [@nadavkaner](https://github.com/nadavkaner)
+
 # 5.15.2 / 4.15.2
 
 -   Fixed [#2230](https://github.com/mobxjs/mobx/issue/2230) computedvalue: throw error object instead of string when options is empty [#2243](https://github.com/mobxjs/mobx/pull/2243) by [@ramkumarvenkat](https://github.com/ramkumarvenkat)

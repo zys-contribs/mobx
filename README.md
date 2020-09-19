@@ -7,32 +7,35 @@ _Simple, scalable state management_
 [![CircleCI](https://circleci.com/gh/mobxjs/mobx.svg?style=svg)](https://circleci.com/gh/mobxjs/mobx)
 [![Coverage Status](https://coveralls.io/repos/mobxjs/mobx/badge.svg?branch=master&service=github)](https://coveralls.io/github/mobxjs/mobx?branch=master)
 [![Join the chat at https://gitter.im/mobxjs/mobx](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mobxjs/mobx?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/mobx)
 [![Discuss MobX on Hashnode](https://hashnode.github.io/badges/mobx.svg)](https://hashnode.com/n/mobx)
 [![OpenCollective](https://opencollective.com/mobx/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/mobx/sponsors/badge.svg)](#sponsors)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/mobxjs/mobx)
 
 MobX is proudly sponsored by Mendix, Coinbase, Facebook Open Source, Canva, Algolia, Guilded, Auction Frontier, Mantro and TalentPlot for 100\$/month or more! And beyond that by many [individual backers](#backers) and through [one time contributions](https://github.com/mobxjs/mobx/blob/master/sponsors.md).
 
-**🥇Gold sponsors (\$250+ pm):** <br/>
+**🥇Gold sponsors (\$3000+ total contribution):** <br/>
 <a href="https://mendix.com/"><img src="docs/assets/mendix-logo.png" align="center" width="100" title="Mendix" alt="Mendix" /></a>
+<a href="https://frontendmasters.com/"><img src="docs/assets/frontendmasters.jpg" align="center" width="100" title="Frontend Masters" alt="Frontend Masters"></a>
+<a href="https://opensource.facebook.com/"><img src="docs/assets/fbos.jpeg" align="center" width="100" title="Facebook Open Source" alt="Facebook Open Source" /></a>
 <a href="http://auctionfrontier.com/"><img src="docs/assets/auctionfrontier.jpeg" align="center" width="100" title="Auction Frontier" alt="Auction Frontier"></a>
+<a href="https://www.guilded.gg/"><img src="docs/assets/guilded.jpg" align="center" width="100" title="Guilded" alt="Guilded" /></a>
+<a href="https://coinbase.com/"><img src="docs/assets/coinbase.jpeg" align="center" width="100" title="Coinbase" alt="Coinbase" /></a>
+<a href="https://www.canva.com/"><img src="docs/assets/canva.png" align="center" width="100" title="Canva" alt="Canva" /></a>
 
 **🥈Silver sponsors (\$100+ pm):**<br/>
-<a href="https://opensource.facebook.com/"><img src="docs/assets/fbos.jpeg" align="center" width="100" title="Facebook Open Source" alt="Facebook Open Source" /></a>
-<a href="https://www.canva.com/"><img src="docs/assets/canva.png" align="center" width="100" title="Canva" alt="Canva" /></a>
-<a href="https://www.guilded.gg/"><img src="docs/assets/guilded.jpg" align="center" width="100" title="Guilded" alt="Guilded" /></a>
 <a href="https://mantro.net/jobs/warlock"><img src="docs/assets/mantro.png" align="center" width="100" title="mantro GmbH" alt="mantro GmbH"></a>
 <a href="https://www.codefirst.co.uk/"><img src="docs/assets/codefirst.png" align="center" width="100" title="CodeFirst" alt="CodeFirst"/></a>
-<a href="https://blokt.com/"><img src="docs/assets/blokt.jpg" align="center" width="100" title="Blokt" alt="Blokt"/></a>
 <a href="https://www.bugsnag.com/platforms/react-error-reporting?utm_source=MobX&utm_medium=Website&utm_content=open-source&utm_campaign=2019-community&utm_term=20190913"><img src="docs/assets/bugsnag.jpg" align="center" width="100" title="Bugsnag" alt="Bugsnag"/></a>
+<a href="https://curology.com/blog/tech"><img src="docs/assets/curology.png" align="center" width="100" title="Curology" alt="Curology"/></a>
 
 **🥉Bronze sponsors (\$500+ total contributions):**<br/>
-<a href="https://coinbase.com/"><img src="docs/assets/coinbase.jpeg" align="center" width="100" title="Coinbase" alt="Coinbase" /></a>
 <a href="https://www.algolia.com/"><img src="docs/assets/algolia.jpg" align="center" width="100" title="Algolia" alt="Algolia" /></a>
 <a href="https://talentplot.com/"><img src="docs/assets/talentplot.png" align="center" width="100" title="talentplot" alt="talentplot"></a>
-<a href="https://frontendmasters.com/"><img src="docs/assets/frontendmasters.jpg" align="center" width="100" title="Frontend Masters" alt="Frontend Masters"></a>
 <a href="https://careers.dazn.com/"><img src="docs/assets/dazn.png" align="center" width="100" title="DAZN" alt="DAZN"></a>
+<a href="https://blokt.com/"><img src="docs/assets/blokt.jpg" align="center" width="100" title="Blokt" alt="Blokt"/></a>
 
 # Installation
 
@@ -118,8 +121,8 @@ class Todo {
 }
 ```
 
-Using `observable` is like turning a property of an object into a spreadsheet cell.
-But, unlike spreadsheets, these values can be not only primitive values, but also references, objects and arrays.
+Using `observable` is like turning a property of an object into a spreadsheet cell that when modified may cause other cells to automatically recalculate, a graph to be re-rendered, or trigger other interesting reactions.
+Unlike spreadsheet cells, `observable` values can be not only primitive values, but also references, objects and arrays.
 
 If your environment doesn't support decorator syntax, don't worry.
 You can read [here](http://mobxjs.github.io/mobx/best/decorators.html) about how to set them up.
@@ -345,6 +348,12 @@ And finally, kudos to all the people that believed in, tried, validated and even
 -   and `yarn test:performance` for the performance tests.
 -   Please note that if you want to backport a feature / fix to MobX 4 a second PR needs to be opened to the mobx4-master branch.
 
+## Online one-click setup for contributing
+
+You can use Gitpod (a free online VS Code-like IDE) for working on issues and making PRs. With a single click it will launch a ready to code workspace with everything setup so that you can start straight away.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/from-referrer/)
+
 # MobX 4 vs MobX 5
 
 The difference between MobX 4 and MobX 5 is that the latter uses Proxies to do property tracking. As a consequence, MobX 5 runs only on Proxy supporting browsers, in contrast to MobX 4 that runs on any ES 5 environment.
@@ -352,7 +361,7 @@ The difference between MobX 4 and MobX 5 is that the latter uses Proxies to do p
 The most notable limitations of MobX 4:
 
 -   Observable arrays are not real arrays, so they won't pass the `Array.isArray()` check. The practical consequence is that you often need to `.slice()` the array first (to get a real array shallow copy) before passing to third party libraries.
--   Adding properties to existing observable objects after creation is not automatically picked up. Instead, either use observable maps or use the the built-in [utility functions](https://mobx.js.org/refguide/object-api.html) to read / write / iterate objects that you want to dynamically add properties to.
+-   Adding properties to existing observable objects after creation is not automatically picked up. Instead, either use observable maps or use the built-in [utility functions](https://mobx.js.org/refguide/object-api.html) to read / write / iterate objects that you want to dynamically add properties to.
 
 For more details see the [caveats page](https://mobx.js.org/best/pitfalls.html).
 

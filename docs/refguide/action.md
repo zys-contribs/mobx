@@ -6,7 +6,7 @@ hide_title: true
 
 # action
 
-<div id='codefund' ></div>
+<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEBD4KQ7&placement=mobxjsorg" id="_carbonads_js"></script>
 
 <details>
     <summary style="color: white; background:green;padding:5px;margin:5px;border-radius:2px">egghead.io lesson 5: actions</summary>
@@ -31,8 +31,8 @@ Any application has actions. Actions are anything that modify the state.
 With MobX you can make it explicit in your code where your actions live by marking them.
 Actions help you to structure your code better.
 
-It takes a function and returns a function with the same signature, but wrapped with `transaction`, `untracked`, and `allowStateChanges`.
-Especially the fact that `transaction` is applied automatically yields great performance benefits;
+It takes a function and returns a function with the same signature, but wrapped with [`transaction`](api.md#transaction), [`untracked`](api.md#untracked), and [`allowStateChanges`](api.md#untracked).
+Especially the fact that [`transaction`](api.md#transaction) is applied automatically yields great performance benefits;
 actions will batch mutations and only notify computed values and reactions after the (outer most) action has finished.
 This makes sure intermediate or incomplete values produced during an action are not visible to the rest of the application until the action has finished.
 
@@ -41,14 +41,14 @@ It is advised to use `(@)action` on any function that modifies observables or ha
 
 Using the `@action` decorator with setters (i.e. `@action set propertyName`) is not supported; however, setters of [computed properties are automatically actions](computed-decorator.md).
 
-Note: using `action` is mandatory when MobX is configured to require actions to make state changes, see [`enforceActions`](api.md#configure).
+Note: using `action` is mandatory when MobX is configured to require actions to make state changes, see [`enforceActions`](api.md#enforceactions).
 
 ## When to use actions?
 
 Actions should only, and always, be used on functions that _modify_ state.
 Functions that just perform look-ups, filters etc should _not_ be marked as actions; to allow MobX to track their invocations.
 
-["enforce actions"](api.md#configure) enforces that all state modifications are done by an action. This is a useful best practice in larger, long term code bases.
+["enforce actions"](api.md#enforceactions) enforces that all state modifications are done by an action. This is a useful best practice in larger, long term code bases.
 
 ## Bound actions
 
@@ -76,4 +76,4 @@ _Note: don't use *action.bound* with arrow functions; arrow functions are alread
 
 ## `runInAction(name?, thunk)`
 
-`runInAction` is a simple utility that takes an code block and executes in an (anonymous) action. This is useful to create and execute actions on the fly, for example inside an asynchronous process. `runInAction(f)` is sugar for `action(f)()`
+`runInAction` is a simple utility that takes a code block and executes in an (anonymous) action. This is useful to create and execute actions on the fly, for example inside an asynchronous process. `runInAction(f)` is sugar for `action(f)()`

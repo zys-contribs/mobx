@@ -6,7 +6,7 @@ hide_title: true
 
 # @observer
 
-<div id='codefund' ></div>
+<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEBD4KQ7&placement=mobxjsorg" id="_carbonads_js"></script>
 
 <details>
     <summary style="color: white; background:green;padding:5px;margin:5px;border-radius:2px">egghead.io lesson 1: observable & observer</summary>
@@ -33,7 +33,7 @@ Using `observer` is pretty straight forward:
 import { observer } from "mobx-react"
 
 var timerData = observable({
-    secondsPassed: 0
+    secondsPassed: 0,
 })
 
 setInterval(() => {
@@ -54,7 +54,7 @@ class Timer extends React.Component {
 ReactDOM.render(<Timer timerData={timerData} />, document.body)
 ```
 
-Because `observer` automatically tracks any observables that are used (and none more), the `Timer` component above will automatically re-render whever `timerData.secondsPassed` is updated, since it is declared as an observable.
+Because `observer` automatically tracks any observables that are used (and none more), the `Timer` component above will automatically re-render whenever `timerData.secondsPassed` is updated, since it is declared as an observable.
 
 Note that `observer` _only_ subscribes to observables used during the _own_ render of the component. So if observables are passed to child components, those have to be marked as `observer` as well. This also holds for any callback based components.
 
@@ -101,7 +101,7 @@ Similarly, we can store observables in local component state using `useState`. A
 const Timer = observer(() => {
     const [timerData] = useState(() =>
         observable({
-            secondsPassed: 0
+            secondsPassed: 0,
         })
     )
 

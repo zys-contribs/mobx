@@ -6,7 +6,7 @@ hide_title: true
 
 # How to (not) use decorators
 
-<div id='codefund' ></div>
+<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEBD4KQ7&placement=mobxjsorg" id="_carbonads_js"></script>
 
 Using ES.next decorators in MobX is optional. This section explains how to use them, or how to avoid them.
 
@@ -67,7 +67,7 @@ decorate(Timer, {
     start: observable,
     current: observable,
     elapsedTime: computed,
-    tick: action
+    tick: action,
 })
 ```
 
@@ -85,7 +85,7 @@ class Todo {
 }
 decorate(Todo, {
     title: [serializable(primitive), persist("object"), observable],
-    finished: [serializable(primitive), observable]
+    finished: [serializable(primitive), observable],
 })
 ```
 
@@ -174,7 +174,7 @@ Note that the `legacy` mode is important (as is putting the decorators proposal 
 
 ---
 
-## Disclamer: Limitations of decorator syntax:
+## Disclaimer: Limitations of decorator syntax:
 
 _The current transpiler implementations of decorator syntax are quite limited and don't behave exactly the same.
 Also, many compositional patterns are currently not possible with decorators, until the stage-2 proposal has been implemented by all transpilers.
